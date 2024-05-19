@@ -30,20 +30,21 @@ const handler = (func: Callable, mapper: Mapper) => {
   };
 };
 
-const apiModuleLoader = async (exp: express.Express) => {
+const apiModuleLoader = async (express: express.Express) => {
   const api_files = fs.readdirSync('./api');
   for (let file_name of api_files) {
     file_name = path.parse(file_name).name;
     const module = await import(/* @vite-ignore */ `./api/${file_name}`);
     for (const key of Object.keys(module)) {
       const func = module[key];
+      const route = `/${file_name}/${key}`;
       if (typeof func === 'function') {
-        exp.get(
-          `/${file_name}/${key}`,
+        express.get(
+          route,
           handler(func, (req) => (arg) => req.query[arg])
         );
-        exp.post(
-          `/${file_name}/${key}`,
+        express.post(
+          route,
           handler(func, (req) => (arg) => req.body[arg])
         );
       }
