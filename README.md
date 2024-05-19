@@ -24,12 +24,25 @@ $ npm init -w back-end -y
 $ npm i express cors express-validator -w back-end
 $ npm i -D typescript vite vite-plugin-node -w back-end
 $ npm i -D @types/cors  @types/express -w back-end
-$ npm i lorem-ipsum-japanese -w back-end/
-$ npm i -D @types/lorem-ipsum-japanese -w back-end/
+$ npm i lorem-ipsum-japanese -w back-end
+$ npm i -D @types/lorem-ipsum-japanese -w back-end
 ```
 
 ```bash
 $ npm init -w front-end -y
-$ npm i -D vite -w front-end/
+$ npm i -D vite -w front-end
 $ npm i cowsay -w front-end
+```
+
+
+```
+# GET
+$ curl -X GET  http://localhost:3000/loren_ipsum/loremIpsum?units=paragraph&count=1
+
+
+# 通常のPost
+$ curl -X POST -d "units=paragraph&count=1" http://localhost:3000/loren_ipsum/loremIpsum
+
+# json
+$ curl -XPOST -H "Content-Type: application/json" -d '{"units":"paragraph", "count": 1}' http://localhost:3000/loren_ipsum/loremIpsum
 ```
