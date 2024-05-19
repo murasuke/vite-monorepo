@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { loremIpsum } from 'lorem-ipsum';
-import coffee from './routes/coffee';
+import apiModuleLoader from './api-module-loader';
 
 const app: express.Express = express();
 
@@ -9,15 +8,10 @@ const app: express.Express = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(express.static('public'));
+app.use(express.static('public'));
 
-// add routes
-app.use('/coffee', coffee);
-
-// implement api method
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.send(loremIpsum());
-});
+// api用moduleのロード(非同期)
+apiModuleLoader(app).then((handler) => app.use(handler));
 
 // listen when production
 if (import.meta.env.PROD) {
