@@ -22,10 +22,10 @@ type Mapper = (
   req: express.Request
 ) => (arg: string) => ValueType<QueryString.ParsedQs>;
 
-const handler = (func: Callable, mapper: Mapper) => {
+const handler = (func: Callable, arg_mapper: Mapper) => {
   return (req: express.Request, res: express.Response) => {
     func['Request'] = req; // requestを呼び出し元で参照できるようにする
-    const result = func(...fnArgs(func).map(mapper(req)));
+    const result = func(...fnArgs(func).map(arg_mapper(req)));
     res.json(result);
   };
 };

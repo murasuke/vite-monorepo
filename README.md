@@ -44,5 +44,5 @@ $ curl -X GET  http://localhost:3000/loren_ipsum/loremIpsum?units=paragraph&coun
 $ curl -X POST -d "units=paragraph&count=1" http://localhost:3000/loren_ipsum/loremIpsum
 
 # json
-$ curl -XPOST -H "Content-Type: application/json" -d '{"units":"paragraph", "count": 1}' http://localhost:3000/loren_ipsum/loremIpsum
+$ curl -X POST -H "Content-Type: application/json" -d '{"units":"paragraph", "count": 1}' http://localhost:3000/loren_ipsum/loremIpsum
 ```
